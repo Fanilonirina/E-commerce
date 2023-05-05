@@ -1,0 +1,22 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Categorie
+{% endblock %}
+
+{% block body_admin %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1 class="text-center mt-3">Modifier un categorie</h1>
+				{{ form_start(categorieForm) }}
+				{{ form_row(categorieForm.name_categorie) }}
+				<button type="submit" class="btn btn-primary my-4">Modifier</button>
+
+				{{ form_end(categorieForm) }}
+
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="hero-wrap hero-bread" style="background-image: url({{asset('assets/images/bg_1.jpg')}});">
+
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-center justify-content-center">
+				<div class="col-md-9 ftco-animate text-center">
+					<p class="breadcrumbs">
+						<span class="mr-2">
+							<a href="{{path('home')}}">Accueil</a>
+						</span>
+						<span>Panier</span>
+					</p>
+					<h1 class="mb-0 bread">Mom Panier</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="ftco-section ftco-cart">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 ftco-animate">
+					<div class="cart-list">
+						<table class="table">
+							<thead class="thead-primary">
+								<tr class="text-center">
+									<th>&nbsp;</th>
+									<th>&nbsp;</th>
+									<th>Designation Produit</th>
+									<th>Prix</th>
+									<th>Quantité</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% if app.session.has('cart') %}
+									{% for produit in produits %}
+										<tr class="text-center">
+											<td class="product-remove">
+												<a href="{{ path('remove_cart', {"id": produit['product_id']}) }}">
+													<span class="ion-ios-close"></span>
+												</a>
+											</td>
+
+											<td class="image-prod">
+												<div class="img" style="background-image:url({{ asset('uploads/produits/' ~ produit['image']) }} );"></div>
+
+											</td>
+
+											<td class="product-name">
+												<h3>{{ produit['designation'] }}</h3>
+											</td>
+
+											<td class="price">{{ produit['price'] }}
+												Ar</td>
+											<form action="{{path('modify_qty', {"id": produit['product_id']})}}">
+
+												<td class="quantity">
+													<div class="input-group mb-3">
+														<input type="number" name="quantity" class="quantity form-control input-number" value="{{ produit['qty'] }}" min="1" max="100">
+													</div>
+													<input type="submit" class="btn btn-outline btn-success" value="Modifier">
+
+												</td>
+												<td class="total">{{ produit['price'] * produit['qty'] }}
+													Ar</td>
+											</form>
+										</tr>
+
+									{% endfor %}
+								{% else %}
+									<td></td>
+									<td></td>
+									<td></td>
+
+									<td class="text-center text-danger">
+										Vous n'avez pas encore de pannier
+									</td>
+
+								{% endif %}
+							</tbody>
+						</tr>
+						<!-- END TR-->
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-end">
+		<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+			<div class="cart-total mb-3">
+
+				<hr>
+				<p class="d-flex total-price">
+					<span>Total</span>
+					<span>{{app.session.has('cart') ? app.session.get('cart').totalPrice : 0 }}
+						Ar</span>
+				</p>
+			</div>
+			<p>
+				<a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+			</p>
+		</div>
+	</div>
+</div></section>{% endblock %}

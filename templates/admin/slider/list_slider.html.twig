@@ -1,0 +1,106 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Slider
+{% endblock %}
+
+{% block body_admin %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				{% for success in app.flashes('success') %}
+					<div class="alert alert-success alert-dismissible text-center fade show" role="alert">
+						{{success}}
+						<button type="button" class="close text-right" data-dismiss="alert" aria-label="close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				{% endfor %}
+
+				<h1 class="text-center mt-3">Liste des sliders</h1>
+
+				<div class="row">
+					<div
+						class="col-md-12">
+						<!-- DATA TABLE -->
+						<div class="table-data__tool">
+							<div class="table-data__tool-right">
+								<a class="au-btn au-btn-icon au-btn--green au-btn--small" href="{{path('add_slider')}} ">
+
+									<i class="zmdi zmdi-plus"></i>Ajouter slider</a>
+							</div>
+						</div>
+						<div class="table-responsive table-responsive-data2">
+							<table class="table table-data2">
+								<thead>
+									<tr>
+										<th>
+											<label class="au-checkbox">
+												<input type="checkbox">
+												<span class="au-checkmark"></span>
+											</label>
+										</th>
+										<th>Image</th>
+										<th>1er description</th>
+										<th>2nd description</th>
+										<th>Status</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for slider in sliders %}
+
+										<tr class="tr-shadow">
+											<td>
+												<label class="au-checkbox">
+													<input type="checkbox">
+													<span class="au-checkmark"></span>
+												</label>
+											</td>
+											<td>
+												<img src="{{asset('uploads/sliders/' ~ slider.image) }}" alt="" width="90px">
+											</td>
+											<td>{{slider.description1}}</td>
+											<td>{{slider.description2}}</td>
+											<td>
+												{% if(slider.status == 1) %}
+													<a href="{{ path('desactiver_slider', {"id": slider.id}) }}" class="btn btn-outline-danger">
+
+														Désactiver
+													</a>
+												{% else %}
+													<a href="{{ path('activer_slider', {"id": slider.id}) }}" class="btn btn-outline-success">
+
+														Activer
+													</a>
+
+												{% endif %}
+											</td>
+
+											<td>
+												<div class="table-data-feature">
+													<a class="item" href="{{path('edit_slider', {"id": slider.id})}}" data-toggle="tooltip" data-placement="top" title="Editer">
+
+														<i class="zmdi zmdi-edit"></i>
+													</a>
+													<a class="item" href="{{path('delete_slider', {"id": slider.id})}}" data-toggle="tooltip" data-placement="top" title="Supprimer">
+														<i class="zmdi zmdi-delete"></i>
+													</a>
+												</div>
+											</td>
+										</tr>
+
+
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+						<!-- END DATA TABLE -->
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}slider
+{% endblock %}
+
+{% block body_admin %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1 class="text-center my-3">Modifier une slider</h1>
+				{{ form_start(sliderForm) }}
+
+				{{ form_row(sliderForm.image) }}
+				{{ form_row(sliderForm.description1) }}
+				{{ form_row(sliderForm.description2) }}
+
+				<button type="submit" class="btn btn-primary my-4">Modifier</button>
+
+				{{ form_end(sliderForm) }}
+
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
